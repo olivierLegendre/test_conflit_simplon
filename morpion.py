@@ -18,6 +18,28 @@ def display_grid(grid: dict):
     """
     for line in grid.values():
         print(line)
+    print()
+
+def play_an_action(grid:dict, player:str, coord:tuple):
+    """For the player 'X' or 'O', push the player symbol
+    in the grid 'grid' at the coordinate 'coord'. coord[0]
+    gives the line label, coord[1] gives the column number.
+
+    Args:
+        grid (dict): the grid
+        player (str): the player symbol
+        coord (tuple): the coordinate in the grid where to play
+
+    Raises:
+        ValueError: Only player 'X' and 'O' are allowed
+    """
+
+    if (player != 'X' and player != 'O'):
+        raise ValueError("Only 'X' and 'O' player names are allowed.")
+    else:
+        grid[coord[0]][coord[1]] = player 
+
+    display_grid(grid)
 
 def is_valid_move(grid: dict, move: tuple) -> bool:
     if grid[tuple[0]][tuple[1]] == "_":
@@ -28,5 +50,6 @@ def is_valid_move(grid: dict, move: tuple) -> bool:
 def main():
     my_grid = create_grid()
     display_grid(my_grid)
+    play_an_action(my_grid,'X',("A",1))
 
 main()

@@ -1,4 +1,11 @@
+def create_grid():
+    grid = dict()
+    grid["A"] =  ["_", "_", "_"]
+    grid["B"] =  ["_", "_", "_"]
+    grid["C"] =  ["_", "_", "_"]
+    return grid
+
 def main():
-    pass
+    print(create_grid())
 
 main()

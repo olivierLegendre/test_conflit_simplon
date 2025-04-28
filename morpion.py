@@ -42,8 +42,17 @@ def play_an_action(grid:dict, player:str, coord:tuple):
     display_grid(grid)
 
 def is_valid_move(grid: dict, move: tuple) -> bool:
+    """
+    check if grid position is empty
+    Args:
+        grid (dict): _description_
+        move (tuple): _description_
+
+    Returns:
+        bool: _description_
+    """
     if grid[tuple[0]][tuple[1]] == "_":
-        return False
+            return False
     else:
         return True
 

@@ -19,8 +19,11 @@ def display_grid(grid: dict):
     for line in grid.values():
         print(line)
 
-def is_valid_move():
-    pass
+def is_valid_move(grid: dict, move: tuple) -> bool:
+    if grid[tuple[0]][tuple[1]] == "_":
+        return False
+    else:
+        return True
 
 def main():
     my_grid = create_grid()

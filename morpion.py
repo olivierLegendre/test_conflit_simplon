@@ -1,4 +1,9 @@
-def create_grid():
+def create_grid() -> dict:
+    """_summary_
+
+    Returns:
+       grid (dict)
+    """
     grid = dict()
     grid["A"] =  ["_", "_", "_"]
     grid["B"] =  ["_", "_", "_"]
@@ -13,6 +18,9 @@ def display_grid(grid: dict):
     """
     for line in grid.values():
         print(line)
+
+def is_valid_move():
+    pass
 
 def main():
     my_grid = create_grid()

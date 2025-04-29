@@ -18,7 +18,6 @@ def display_grid(grid: dict):
     """
     for line in grid.values():
         print(line)
-    print()
 
 def play_an_action(grid:dict, player:str, coord:tuple):
     """For the player 'X' or 'O', push the player symbol
@@ -38,8 +37,12 @@ def play_an_action(grid:dict, player:str, coord:tuple):
         raise ValueError("Only 'X' and 'O' player names are allowed.")
     else:
         if is_valid_move(grid, coord):
-            grid[coord[0]][coord[1]] = player 
-    display_grid(grid)
+            grid[coord[0]][coord[1]] = player
+            return True
+        else : 
+            print("not a valid move")
+            return False
+    # display_grid(grid)
 
 def is_valid_move(grid: dict, move: tuple) -> bool:
     """
@@ -51,7 +54,7 @@ def is_valid_move(grid: dict, move: tuple) -> bool:
     Returns:
         bool: _description_
     """
-    if grid[move[0]][move[1]] == "_":
+    if grid[move[0]][move[1]] != "_":
             return False
     else:
         return True
@@ -72,48 +75,90 @@ def is_grid_full(grid:dict) -> bool:
     return True
 
 def check_win(grid:dict)-> bool:
-    if check_ligne(grid):
-        return check_ligne(grid)
-    if check_colonne(grid):
-        return check_colonne(grid)
-    if check_diago(grid):
-        return check_diago(grid)
-    return False
+    """_summary_
 
-def check_ligne(grid):
+    Args:
+        grid (dict): _description_
+
+    Returns:
+        bool: _description_
+    """
+    win_line = check_ligne(grid)
+    win_colonne = check_colonne(grid)
+    win_diago = check_diago(grid)
+    if win_line:
+        return check_ligne(grid)
+    if win_colonne:
+        return check_colonne(grid)
+    if win_diago:
+        return check_diago(grid)
+    return False, "_"
+
+def check_ligne(grid: dict)->bool :
+    """_summary_
+
+    Args:
+        grid (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     # Vérifier les lignes
     for ligne in grid:
         if grid[ligne][0]==grid[ligne][1] and grid[ligne][1]==grid[ligne][2]:
             if grid[ligne][0] == "_":
-                return False
+                return False, "_"
             else :
                 return True, grid[ligne][0]
 
-def check_colonne(grid):
+def check_colonne(grid: dict) -> bool:
+    """_summary_
+
+    Args:
+        grid (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     # Vérifier les colonnes
     for i in range(3):
         if grid["A"][i]==grid["B"][i] and grid["B"][i]==grid["C"][i]:
             if grid["A"][i] == "_":
-                return False
+                return False, "_"
             else :
                 return True, grid["A"][i]
 
-def check_diago(grid):
+def check_diago(grid: dict) -> bool:
     if grid["A"][0] == grid["B"][1] and grid["B"][1]==grid["C"][2]:
-        return True, grid["B"][1]
+        if grid["B"][1] != "_":
+            return True, grid["B"][1]
     if grid["A"][2] == grid["B"][1] and grid["B"][1]==grid["C"][0]:
-        return True, grid["B"][1]
-    return False
+        if grid["B"][1] != "_":
+            return True, grid["B"][1]
+    return False, "_"
 
 
 def main():
     my_grid = create_grid()
-    my_grid["A"] = ["O", "", "_"]
-    my_grid["B"] = ["X", "O", "_"]
-    my_grid["C"] = ["X", "_", "O"]
     display_grid(my_grid)
-    play_an_action(my_grid,'X',("A",1))
-    print(f"is grid full ? {is_grid_full(my_grid)}")
-    print(f"Vainqueur : {check_win(my_grid)}")
+    
+    player = "X"
+    while not is_grid_full(my_grid):
+        win, winner = check_win(my_grid)
+        if win == True:
+            print(f"we have a winner ! {winner}")
+            quit()
+        else : 
+            player = "X" if player == "O" else "O"
+            print(f"player {player}")
+            line = input("select A, B or C\n")
+            column = input("select 0, 1 or 2\n")
+            coord = tuple([line, int(column)])
+            if not (play_an_action(my_grid, player, coord)) : 
+                print("pas une action legale")
+        display_grid(my_grid)
+    else:
+        print("grid full, everybody wins")
+        quit()
 
 main()

@@ -37,7 +37,8 @@ def play_an_action(grid:dict, player:str, coord:tuple):
     if (player != 'X' and player != 'O'):
         raise ValueError("Only 'X' and 'O' player names are allowed.")
     else:
-        grid[coord[0]][coord[1]] = player 
+        if is_valid_move(grid, coord):
+            grid[coord[0]][coord[1]] = player 
 
     display_grid(grid)
 
@@ -51,7 +52,7 @@ def is_valid_move(grid: dict, move: tuple) -> bool:
     Returns:
         bool: _description_
     """
-    if grid[tuple[0]][tuple[1]] == "_":
+    if grid[move[0]][move[1]] == "_":
             return False
     else:
         return True

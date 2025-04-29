@@ -39,7 +39,6 @@ def play_an_action(grid:dict, player:str, coord:tuple):
     else:
         if is_valid_move(grid, coord):
             grid[coord[0]][coord[1]] = player 
-
     display_grid(grid)
 
 def is_valid_move(grid: dict, move: tuple) -> bool:
@@ -61,5 +60,6 @@ def main():
     my_grid = create_grid()
     display_grid(my_grid)
     play_an_action(my_grid,'X',("A",1))
+
 
 main()

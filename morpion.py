@@ -71,11 +71,49 @@ def is_grid_full(grid:dict) -> bool:
                 return False
     return True
 
+def check_win(grid:dict)-> bool:
+    if check_ligne(grid):
+        return check_ligne(grid)
+    if check_colonne(grid):
+        return check_colonne(grid)
+    if check_diago(grid):
+        return check_diago(grid)
+    return False
+
+def check_ligne(grid):
+    # Vérifier les lignes
+    for ligne in grid:
+        if grid[ligne][0]==grid[ligne][1] and grid[ligne][1]==grid[ligne][2]:
+            if grid[ligne][0] == "_":
+                return False
+            else :
+                return True, grid[ligne][0]
+
+def check_colonne(grid):
+    # Vérifier les colonnes
+    for i in range(3):
+        if grid["A"][i]==grid["B"][i] and grid["B"][i]==grid["C"][i]:
+            if grid["A"][i] == "_":
+                return False
+            else :
+                return True, grid["A"][i]
+
+def check_diago(grid):
+    if grid["A"][0] == grid["B"][1] and grid["B"][1]==grid["C"][2]:
+        return True, grid["B"][1]
+    if grid["A"][2] == grid["B"][1] and grid["B"][1]==grid["C"][0]:
+        return True, grid["B"][1]
+    return False
+
+
 def main():
     my_grid = create_grid()
+    my_grid["A"] = ["O", "", "_"]
+    my_grid["B"] = ["X", "O", "_"]
+    my_grid["C"] = ["X", "_", "O"]
     display_grid(my_grid)
     play_an_action(my_grid,'X',("A",1))
     print(f"is grid full ? {is_grid_full(my_grid)}")
-
+    print(f"Vainqueur : {check_win(my_grid)}")
 
 main()

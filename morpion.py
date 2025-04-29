@@ -55,11 +55,27 @@ def is_valid_move(grid: dict, move: tuple) -> bool:
             return False
     else:
         return True
+    
+def is_grid_full(grid:dict) -> bool:
+    """
+    check if grid is full
+    Args:
+        grid (dict): _description_
+
+    Returns:
+        bool: _description_
+    """
+    for line_name in grid.keys():
+        for x in range(len(grid[line_name])):
+            if grid[line_name][x]:
+                return False
+    return True
 
 def main():
     my_grid = create_grid()
     display_grid(my_grid)
     play_an_action(my_grid,'X',("A",1))
+    print(f"is grid full ? {is_grid_full(my_grid)}")
 
 
 main()

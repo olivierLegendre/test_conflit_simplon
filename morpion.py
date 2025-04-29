@@ -65,7 +65,7 @@ def is_grid_full(grid:dict) -> bool:
     Returns:
         bool: _description_
     """
-    for line_name in grid.keys():
+    for line_name in grid:
         for x in range(len(grid[line_name])):
             if grid[line_name][x]:
                 return False
